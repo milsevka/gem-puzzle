@@ -55,3 +55,65 @@ let pazzleContainer = document.createElement("div");
 pazzleContainer.className = "pazzle-container";
 container.append(pazzleContainer);
 
+const freeCard = {
+  top: 0,
+  left: 0,
+};
+
+const cellsArray = [];
+cellsArray.push(freeCard);
+
+function change(index) {
+  const card = cellsArray[index];
+  const diffPositionLeft = Math.abs(freeCard.left - card.left);
+  const diffPositionTop= Math.abs(freeCard.top - card.top);
+  if (diffPositionLeft + diffPositionTop > 1) {
+    return;
+  }
+
+  card.element.style.top = `${freeCard.top * 100}px`;
+  card.element.style.left = `${freeCard.left * 100}px`;
+
+  const emtleft = freeCard.left;
+  const emtTop = freeCard.top;
+  freeCard.left = card.left;
+  freeCard.top = card.top;
+  card.left = emtleft;
+  card.top = emtTop;
+
+  const isFinished = cellsArray.every((cell) => {
+    return card.value === card.top * 4 + card.left;
+  });
+
+  if (isFinished) {
+    alert("win");
+  }
+}
+
+const numbers = [...Array(15).keys()].sort(() => Math.random() - 0.5);
+for (let i = 1; i <= 15; i++) {
+  let pazzleCard = document.createElement("div");
+  let value = numbers[i - 1] + 1;
+  pazzleCard.className = "pazzle-card";
+  pazzleCard.innerHTML = value;
+  const left = i % 4;
+  const top = (i - left) / 4;
+  cellsArray.push({
+    value: value,
+    left: left,
+    top: top,
+    element: pazzleCard,
+  });
+
+  pazzleCard.style.top = `${top * 100}px`;
+  pazzleCard.style.left = `${left * 100}px`;
+  pazzleContainer.append(pazzleCard);
+
+  pazzleCard.addEventListener("click", () => {
+    change(i);
+  });
+}
+
+// shuffle.addEventListener("click", () => {
+ 
+// })
