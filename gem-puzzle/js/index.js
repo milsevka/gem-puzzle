@@ -81,13 +81,13 @@ function change(index) {
   card.left = emtleft;
   card.top = emtTop;
 
-  const isFinished = cellsArray.every((cell) => {
-    return card.value === card.top * 4 + card.left;
-  });
+  // const isFinished = cellsArray.every((cell) => {
+  //   return card.value === card.top * 4 + card.left;
+  // });
 
-  if (isFinished) {
-    alert("win");
-  }
+  // if (isFinished) {
+  //   alert("win");
+  // }
 }
 
 const numbers = [...Array(15).keys()].sort(() => Math.random() - 0.5);
