@@ -10,7 +10,7 @@ body {
    color: rgb(216, 219, 226);
    user-select: none;
 }
-.popap {
+.popup , .popup-results{
     position: absolute;
     top: 0;
     left: 0;
@@ -25,20 +25,36 @@ body {
 .active {
     display: flex;
 }
-.popap-content {
+.activep {
+    display: flex;
+}
+
+.popup-content {
     display: inline;
     background-color:  rgba(118, 179, 211, 0.7);
-    width: 50%;
-    height: 20%;
+    width: 60%;
+    height: 50%;
     position: relative;
     text-align: center;
+}
+.res {
+    list-style-type: none;
+}
+.results-container {
+    display: flex;
+    flex-direction: column;
+    background-color:  rgba(118, 179, 211, 0.7);
+    width: 60%;
+    height: 50%;
+    position: relative;
+    text-align: center; 
+    font-size: 17px;
 }
 .main-container {
     width: 100%;
     height: 100%;
     font-size: 35px;
     font-weight: 800;
-    /* background-color: rgb(101, 179, 179); */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,16 +65,17 @@ body {
     margin-top: 20px;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 20px;
 }
 .shuffle , .load, .save , .results {
     background-color: rgba(118, 179, 211, 0.5);
     border: 1px solid rgb(97, 71, 121);
     box-shadow: 0 10px 28px rgba(0,0,0,0.2), 0 10px 10px rgba(0,0,0,0.3);
-    padding: 5px;
+    padding: 3px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 400;
 }
 .options-time {
@@ -67,6 +84,7 @@ body {
     flex-direction: row;
     justify-content: space-between;
     gap: 20px;
+    font-size: 30px;
 }
 .time-game , .moves-game {
     display: flex;
@@ -100,24 +118,29 @@ body {
    transition: all .2s;
    color: rgb(216, 219, 226);
    box-shadow: 0 10px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-   /* box-shadow: inset 2px 2px 5px rgba(69, 143, 186, 0.2), 1px 1px 5px rgba(240, 236, 236, 0.2); */
+   cursor: pointer;
 }
 .size-container {
-    margin-top: 50px;
+    margin-top: 30px;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    gap: 10px;
+    justify-content: center;
+    /* justify-content: space-around; */
+    align-items: center;
     width: 100%;
-    
+    font-size: 15px;
+    font-weight: 400;
 }
 .size-three, .size-four, .size-five, .size-six, .size-seven, .size-eight {
     border: 1px solid rgb(97, 71, 121);
     border-radius: 5px;
-    padding: 5px;
+    padding: 4px;
     background-color: rgba(118, 179, 211, 0.5);
     box-shadow: 0 10px 28px rgba(0,0,0,0.2), 0 10px 10px rgba(0,0,0,0.3);
     cursor: pointer;
-    font-size: 20px;
+    font-size: 15px;
+    font-weight: 400;
 }
 .size-text {
     display: flex;
