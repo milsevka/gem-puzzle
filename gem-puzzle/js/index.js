@@ -3,6 +3,14 @@ container.className = "main-container";
 container.innerHTML = "It's a Gem Puzzle. Good luck!";
 document.body.append(container);
 
+let popap = document.createElement("div");
+popap.className = "popap";
+container.append(popap);
+
+let popapContetn = document.createElement("div");
+popapContetn.className = "popap-content";
+popap.append(popapContetn);
+
 let options = document.createElement("div");
 options.className = "options";
 container.append(options);
@@ -12,10 +20,10 @@ shuffle.className = "shuffle";
 shuffle.innerHTML = "Shuffle and Start";
 options.append(shuffle);
 
-let stopGames = document.createElement("div");
-stopGames.className = "stop";
-stopGames.innerHTML = "Stop";
-options.append(stopGames);
+let loadGames = document.createElement("div");
+loadGames.className = "load";
+loadGames.innerHTML = "Load";
+options.append(loadGames);
 
 let save = document.createElement("div");
 save.className = "save";
@@ -33,12 +41,12 @@ container.append(optionsTime);
 
 let movesGame = document.createElement("div");
 movesGame.className = "moves-game";
-movesGame.innerHTML = "moves: ";
+movesGame.innerHTML = "Moves: ";
 optionsTime.append(movesGame);
 
 let timeGame = document.createElement("div");
 timeGame.className = "time-game";
-timeGame.innerHTML = "time: ";
+timeGame.innerHTML = "Time: ";
 optionsTime.append(timeGame);
 
 let movesCounter = document.createElement("div");
@@ -111,10 +119,23 @@ let size;
 
 sizeContainer.onclick = function (event) {
   let target = event.target;
-  rows = target.id
-  size = target.innerHTML
+  if (target.className === 'size-three' || target.className === 'size-four' || target.className === 'size-five' ||
+  target.className === 'size-six' || target.className === 'size-seven' || target.className === 'size-eight') {
+    rows = target.id
+    size = target.innerHTML
+  console.log(target.className)
+    amount = Number(target.id * target.id - 1) 
+    pazzleContainer.innerHTML = ''
+       cellsArray.length = 0;
+       movesCounter.innerHTML = '0';
+      sizeCounter.innerHTML = size;
+      timeCounter.innerHTML = '00:00'
+       prepTable()
+       clearTimer()
+  } else {
+    return;
+  }
 
-  amount = Number(target.id * target.id - 1)
 }
 
 const freeCard = {
@@ -124,45 +145,68 @@ const freeCard = {
 };
 
 let cellsArray;
-//  cellsArray.push(freeCard);
+let counterWin = 0;
 
 
 function change(index) {
   let widthCard = 320 / rows
+ 
+  
   const card = cellsArray[index];
-  const diffPositionLeft = Math.abs(freeCard.left - card.left);
-  const diffPositionTop= Math.abs(freeCard.top - card.top);
-  if (diffPositionLeft + diffPositionTop > 1) {
+  const diffPositionRight = Math.abs(freeCard.left - card.left);
+  const diffPositionBottom= Math.abs(freeCard.top - card.top);
+  if (diffPositionRight + diffPositionBottom > 1) {
     return;
   }
 
   card.element.style.top = `${freeCard.top * widthCard}px`;
   card.element.style.left = `${freeCard.left * widthCard}px`;
 
-  const emtleft = freeCard.left;
-  const emtTop = freeCard.top;
+  const emtRight = freeCard.left;
+  const emtBottom = freeCard.top;
   freeCard.left = card.left;
   freeCard.top = card.top;
-  card.left = emtleft;
-  card.top = emtTop;
+  card.left = emtRight;
+  card.top = emtBottom;
+  console.log(cellsArray)
+  const isFinished = cellsArray.every((card) => {
+    // console.log(card.bottom * rows + card.right)
+    // console.log(card.value)
+    return card.value === card.top * rows + card.left + 1;
+  });
 
-  // const isFinished = cellsArray.every((cell) => {
-  //   return card.value === card.top * 4 + card.left;
-  // });
+  if (isFinished) {
+    clearTimer()
+    popap.classList.add('active')
+    popapContetn.innerHTML = `You won! You solved the puzzle in ${movesCounter.innerHTML} steps and in ${timeCounter.innerHTML} sec!`
+  }
 
-  // if (isFinished) {
-  //   alert("win");
-  // }
 }
+
+// function setLocalStorage() {
+//   localStorage.setItem('result', nameMain.value);
+// }
+
+
+// function getLocalStorage() {
+//   if(localStorage.getItem('result')) {
+//     nameMain.value = localStorage.getItem('result');
+//   }
+// }
 
 
 function prepTable() {
-freeCard.top = 0;
 freeCard.left = 0;
+freeCard.top = 0;
+freeCard.value = rows * rows
 cellsArray = [];
 cellsArray.push(freeCard);
 let widthCard = 320 / rows
-const numbers = [...Array(amount).keys()].sort(() => Math.random() - 0.5);
+const numbers = [...Array(amount).keys()]
+// .reverse()
+.sort(() => Math.random() - 0.5);
+// console.log(numbers)
+// console.log(cellsArray)
 for (let i = 1; i <= amount; i++) {
     let pazzleCard = document.createElement("div");
     let value = numbers[i - 1] + 1;
@@ -178,20 +222,19 @@ for (let i = 1; i <= amount; i++) {
       top: top,
       element: pazzleCard,
     });
-  
     if (amount > 30) {
     pazzleCard.style.fontSize = `25px`
     }
     pazzleCard.style.top = `${top * widthCard}px`;
     pazzleCard.style.left = `${left * widthCard}px`;
-
-
     pazzleContainer.append(pazzleCard);
     pazzleCard.addEventListener("click", () => {
       change(i);
       movesCounter.innerHTML++
     });
   }
+  
+
 }
 
 
@@ -204,7 +247,7 @@ function startTimer() {
 }
 
 function tick() {
-  timeCounter.innerHTML = sec++
+  timeCounter.innerHTML = `${Math.trunc(sec/60%60).toString().padStart(2,'0')}:${parseInt(sec++ % 60).toString().padStart(2, '0')}`
 }
 
 function clearTimer() {
@@ -213,15 +256,8 @@ function clearTimer() {
 
 function stopTimer() {
   clearInterval(timer)
-// pazzleContainer.style.backgroundColor = 'black' // блокировка действия
 }
-sizeContainer.addEventListener("click", () => {
-  pazzleContainer.innerHTML = ''
-   cellsArray.length = 0;
-   movesCounter.innerHTML = '0';
-  sizeCounter.innerHTML = size;
-   prepTable()
-});
+
 
 prepTable()
 
@@ -235,6 +271,6 @@ shuffle.addEventListener ("click" , () => {
   startTimer()
 })
 
-stopGames.addEventListener ("click" , () => {
-stopTimer()
-});
+popap.addEventListener("click", () => {
+  popap.classList.remove('active')
+} )
