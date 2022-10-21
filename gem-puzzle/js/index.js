@@ -189,8 +189,7 @@ function change(index) {
   card.top = emtBottom;
  
   const isFinished = cellsArray.every((card) => {
-    return card.value === card.top * rows + card.left 
-    // +1;
+    return card.value === card.top * rows + card.left +1;
   });
  
   if (isFinished) {
@@ -216,7 +215,8 @@ function change(index) {
     resultWin.push(stringLocal);
     resultWin.sort((prev, next) => prev.moves - next.moves)
     ol.innerHTML = JSON.stringify(resultWin).replace(/[^a-z0-9:.\s]/gi, ' ')
-    console.log(JSON.stringify(resultWin))
+   localStorage.setItem('moves', ol.innerHTML)
+  
      
 
 
@@ -250,30 +250,30 @@ function change(index) {
 function prepTable() {
 freeCard.left = 0;
 freeCard.top = 0;
-freeCard.value = 0;
-// freeCard.value = rows * rows
+// freeCard.value = 0;
+ freeCard.value = rows * rows
 cellsArray = [];
 cellsArray.push(freeCard);
 let widthCard = 320 / rows
 let numbers = [...Array(amount).keys()]
-// .sort(() => Math.random() - 0.5);
+.sort(() => Math.random() - 0.5);
 
-// function inversion(numbers) {
-//  let x = 0;
-//  for (let a = 0; a < numbers.length; a++) {
-//   const count = numbers.filter((elem, ind) => {
-//     return elem < numbers[a] + 1 && ind > a;
-//   }).length;
-//   x += count;
-//  } 
-//  return rows % 2 !== 0 ? x : x + 1;
-// }
+function inversion(numbers) {
+ let x = 0;
+ for (let a = 0; a < numbers.length; a++) {
+  const count = numbers.filter((elem, ind) => {
+    return elem < numbers[a] + 1 && ind > a;
+  }).length;
+  x += count;
+ } 
+ return rows % 2 !== 0 ? x : x + 1;
+}
 
-//  if (!inversion(numbers)) inversion();
-//  while (inversion(numbers) % 2 !== 0) {
-//   numbers = [...Array(amount).keys()].sort(() => Math.random() - 0.5);
-//   inversion(numbers)
-//  }
+ if (!inversion(numbers)) inversion();
+ while (inversion(numbers) % 2 !== 0) {
+  numbers = [...Array(amount).keys()].sort(() => Math.random() - 0.5);
+  inversion(numbers)
+ }
 
 
 for (let i = 1; i <= amount; i++) {
@@ -371,5 +371,8 @@ shuffle.addEventListener("click", () => {
     return;
   }
 });
-
+function meow() {
+  ol.innerHTML = localStorage.getItem('moves')
+}
+window.addEventListener ('load', meow)
 
