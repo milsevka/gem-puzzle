@@ -44,6 +44,10 @@ results.className = "results";
 results.innerHTML = "Results";
 options.append(results);
 
+let music = document.createElement("div");
+music.className = "music";
+options.append(music);
+
 let optionsTime = document.createElement("div");
 optionsTime.className = "options-time";
 container.append(optionsTime);
@@ -123,7 +127,7 @@ sizeeight.innerHTML = "8x8";
 sizeeight.id = 8
 sizeContainer.append(sizeeight);
 
-let ol = document.createElement("ol");
+let ol = document.createElement("div");
 ol.className = "res";
 resultsCont.append(ol);
 
@@ -160,7 +164,8 @@ const freeCard = {
 let cellsArray;
 
 
-
+let result = [];
+let resultWin = []
 
 function change(index) {
   let widthCard = 320 / rows
@@ -184,27 +189,49 @@ function change(index) {
   card.top = emtBottom;
  
   const isFinished = cellsArray.every((card) => {
-    return card.value === card.top * rows + card.left  +1;
+    return card.value === card.top * rows + card.left 
+    // +1;
   });
  
   if (isFinished) {
-    let stringLocal = `Moves: ${movesCounter.innerHTML} - Time: ${timeCounter.innerHTML} - Value: ${(movesCounter.innerHTML / sec).toFixed(1)}`
+    if(music.classList.contains('music-on')) {
+      let audioWon = new Audio(); 
+      audioWon.src = '../../gem-puzzle/music/4cccc379d8da21a.mp3'; 
+      audioWon.volume = 0.5;
+      audioWon.play();
+    }
+ 
+   
+    
+  let stringLocal = {moves: movesCounter.innerHTML , time: timeCounter.innerHTML}
+  // resultWin.push(stringLocal)
+  // console.log(resultWin)
+  // ol.innerHTML = JSON.stringify(resultWin.sort((prev, next) => prev.moves - next.moves))
+  // ol.innerHTML = resultWin.sort((prev, next) => prev.moves - next.moves).join('')
 
+  //  Object.entries(stringLocal).forEach(([key, value]) => resultWin.push(`${key}: ${value}`))
     popup.classList.add('active')
     popupContetn.innerHTML = `You won! You solved the puzzle in ${movesCounter.innerHTML} steps and in ${timeCounter.innerHTML} sec!`
-     localStorage.setItem('moves', stringLocal)
+    // localStorage.setItem('moves', stringLocal)
+    resultWin.push(stringLocal);
+    resultWin.sort((prev, next) => prev.moves - next.moves)
+    ol.innerHTML = JSON.stringify(resultWin).replace(/[^a-z0-9:.\s]/gi, ' ')
+    console.log(JSON.stringify(resultWin))
+     
 
- 
-      function getListContent() {
-        let result = [];
-        for(let i=1; i<=1; i++) {
-          let li = document.createElement('li');
-          li.append(`${localStorage.getItem('moves')}`);
-          result.push(li);
-        }
-        return result;
-      }
-      ol.append(...getListContent());
+
+      // function getListContent() {
+      //   let result = [];
+   
+      //   for(let i=1; i<=1; i++) {
+      //     let li = document.createElement('li');
+      //     li.append(`${localStorage.getItem('moves')}`);
+      //     result.push(li);
+      //   }
+      //   return result;
+      // }
+      // // ol.innerHTML = getListContent()
+      //  ol.append(...getListContent());
  
      
  
@@ -223,13 +250,31 @@ function change(index) {
 function prepTable() {
 freeCard.left = 0;
 freeCard.top = 0;
-//  freeCard.value = 0;
- freeCard.value = rows * rows
+freeCard.value = 0;
+// freeCard.value = rows * rows
 cellsArray = [];
 cellsArray.push(freeCard);
 let widthCard = 320 / rows
-const numbers = [...Array(amount).keys()]
-.sort(() => Math.random() - 0.5);
+let numbers = [...Array(amount).keys()]
+// .sort(() => Math.random() - 0.5);
+
+// function inversion(numbers) {
+//  let x = 0;
+//  for (let a = 0; a < numbers.length; a++) {
+//   const count = numbers.filter((elem, ind) => {
+//     return elem < numbers[a] + 1 && ind > a;
+//   }).length;
+//   x += count;
+//  } 
+//  return rows % 2 !== 0 ? x : x + 1;
+// }
+
+//  if (!inversion(numbers)) inversion();
+//  while (inversion(numbers) % 2 !== 0) {
+//   numbers = [...Array(amount).keys()].sort(() => Math.random() - 0.5);
+//   inversion(numbers)
+//  }
+
 
 for (let i = 1; i <= amount; i++) {
     let pazzleCard = document.createElement("div");
@@ -254,6 +299,12 @@ for (let i = 1; i <= amount; i++) {
     pazzleContainer.append(pazzleCard);
     pazzleCard.addEventListener("click", () => {
       change(i);
+      if(music.classList.contains('music-on')) {
+        let audioCard = new Audio(); 
+        audioCard.src = '../../gem-puzzle/music/game_board_003_52379.mp3'; 
+        audioCard.volume = 0.5;
+        audioCard.play();
+      }
     });
   }
   
@@ -306,5 +357,19 @@ popupResults.addEventListener("click", () => {
   popupResults.classList.remove('activep')
 });
 
+music.addEventListener("click", () => {
+  music.classList.toggle('music-on')
+})
+
+shuffle.addEventListener("click", () => {
+  if(music.classList.contains('music-on')) {
+    let audio = new Audio(); 
+    audio.src = '../../gem-puzzle/music/board_tip_movement_002_52384.mp3'; 
+    audio.volume = 0.5;
+    audio.play();
+  } else {
+    return;
+  }
+});
 
 

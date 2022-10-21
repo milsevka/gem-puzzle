@@ -37,14 +37,16 @@ body {
     position: relative;
     text-align: center;
 }
-/* .res {
+.res {
     list-style-type: none;
-} */
+    width: 161px;
+}
 .results-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-color:  rgba(118, 179, 211, 0.7);
-    width: 60%;
+    width: 47%;
     height: 50%;
     position: relative;
     text-align: center; 
@@ -67,6 +69,19 @@ body {
     flex-direction: row;
     justify-content: center;
     gap: 20px;
+    align-items: center;
+}
+.music {
+    content: url(../gem-puzzle/image/off.png);
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+.music-on {
+    content: url(../gem-puzzle/image/on.png);
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
 }
 .shuffle , .load, .save , .results {
     background-color: rgba(118, 179, 211, 0.5);
@@ -148,4 +163,6 @@ body {
     font-weight: 400;
     font-size: 20px;
     margin-top: 10px;
+    justify-content: center;
+    align-items: center;
 }
