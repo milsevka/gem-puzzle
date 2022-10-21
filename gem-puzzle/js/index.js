@@ -123,9 +123,9 @@ sizeeight.innerHTML = "8x8";
 sizeeight.id = 8
 sizeContainer.append(sizeeight);
 
-let ul = document.createElement("ul");
-ul.className = "res";
-resultsCont.append(ul);
+let ol = document.createElement("ol");
+ol.className = "res";
+resultsCont.append(ol);
 
 let amount = 15;
 let rows = 4; 
@@ -158,8 +158,8 @@ const freeCard = {
 };
 
 let cellsArray;
-let counterWin = 0;
-let counterTop = 0;
+
+
 
 
 function change(index) {
@@ -184,26 +184,36 @@ function change(index) {
   card.top = emtBottom;
  
   const isFinished = cellsArray.every((card) => {
-    return card.value === card.top * rows + card.left + 1;
+    return card.value === card.top * rows + card.left  +1;
   });
-
+ 
   if (isFinished) {
-    clearTimer()
-    counterTop++
-    let stringLocal = `Moves: ${movesCounter.innerHTML} - Time: ${timeCounter.innerHTML}`
-    ul.append(...getListContent());
+    let stringLocal = `Moves: ${movesCounter.innerHTML} - Time: ${timeCounter.innerHTML} - Value: ${(movesCounter.innerHTML / sec).toFixed(1)}`
+
     popup.classList.add('active')
     popupContetn.innerHTML = `You won! You solved the puzzle in ${movesCounter.innerHTML} steps and in ${timeCounter.innerHTML} sec!`
      localStorage.setItem('moves', stringLocal)
-     function getListContent() {
-      let result = [];
-      for(let i=1; i<=1; i++) {
-        let li = document.createElement('li');
-        li.append(`${counterTop} - ${localStorage.getItem('moves')}`);
-        result.push(li);
+
+ 
+      function getListContent() {
+        let result = [];
+        for(let i=1; i<=1; i++) {
+          let li = document.createElement('li');
+          li.append(`${localStorage.getItem('moves')}`);
+          result.push(li);
+        }
+        return result;
       }
-      return result;
-    }
+      ol.append(...getListContent());
+ 
+     
+ 
+    clearTimer()
+    pazzleContainer.innerHTML = ''
+  movesCounter.innerHTML = '0'
+  cellsArray.length = 0
+  timeCounter.innerHTML = '00:00'
+  prepTable()
   }
 
 }
@@ -213,12 +223,12 @@ function change(index) {
 function prepTable() {
 freeCard.left = 0;
 freeCard.top = 0;
-freeCard.value = rows * rows
+//  freeCard.value = 0;
+ freeCard.value = rows * rows
 cellsArray = [];
 cellsArray.push(freeCard);
 let widthCard = 320 / rows
 const numbers = [...Array(amount).keys()]
-
 .sort(() => Math.random() - 0.5);
 
 for (let i = 1; i <= amount; i++) {
@@ -244,7 +254,6 @@ for (let i = 1; i <= amount; i++) {
     pazzleContainer.append(pazzleCard);
     pazzleCard.addEventListener("click", () => {
       change(i);
-      // movesCounter.innerHTML++
     });
   }
   

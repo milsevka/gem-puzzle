@@ -37,9 +37,9 @@ body {
     position: relative;
     text-align: center;
 }
-.res {
+/* .res {
     list-style-type: none;
-}
+} */
 .results-container {
     display: flex;
     flex-direction: column;
