@@ -193,12 +193,12 @@ function change(index) {
   });
  
   if (isFinished) {
-    // if(music.classList.contains('music-on')) {
-    //   let audioWon = new Audio(); 
-    //   audioWon.src = '../../gem-puzzle/music/4cccc379d8da21a.mp3'; 
-    //   audioWon.volume = 0.5;
-    //   audioWon.play();
-    // }
+    if(music.classList.contains('music-on')) {
+      let audioWon = new Audio(); 
+      audioWon.src = '../music/4cccc379d8da21a.mp3'; 
+      audioWon.volume = 0.5;
+      audioWon.play();
+    }
  
    
     
