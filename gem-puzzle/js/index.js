@@ -191,14 +191,14 @@ function change(index) {
   const isFinished = cellsArray.every((card) => {
     return card.value === card.top * rows + card.left +1;
   });
- 
+ localStorage.setItem('arr', cellsArray)
   if (isFinished) {
-    if(music.classList.contains('music-on')) {
-      let audioWon = new Audio(); 
-      audioWon.src = '../../gem-puzzle/music/4cccc379d8da21a.mp3'; 
-      audioWon.volume = 0.5;
-      audioWon.play();
-    }
+    // if(music.classList.contains('music-on')) {
+    //   let audioWon = new Audio(); 
+    //   audioWon.src = '../../gem-puzzle/music/4cccc379d8da21a.mp3'; 
+    //   audioWon.volume = 0.5;
+    //   audioWon.play();
+    // }
  
    
     
@@ -278,7 +278,7 @@ for (let i = 1; i <= amount; i++) {
       change(i);
       if(music.classList.contains('music-on')) {
         let audioCard = new Audio(); 
-        audioCard.src = '/gem-puzzle/js/game_board_003_52379.mp3'; 
+        audioCard.src = '../../../milsevka-JSFE2022Q3/gem-puzzle/music/board_tip_movement_002_52384.mp3'; 
         audioCard.volume = 0.5;
         audioCard.play();
       }
@@ -348,8 +348,29 @@ music.addEventListener("click", () => {
 //     return;
 //   }
 // });
-function meow() {
+function localResults() {
   ol.innerHTML = localStorage.getItem('moves')
 }
-window.addEventListener ('load', meow)
+
+save.addEventListener("click", () => {
+  localStorage.setItem('pages', pazzleContainer.innerHTML)
+  localStorage.setItem('timeSave', timeCounter.innerHTML)
+  localStorage.setItem('movesSave', movesCounter.innerHTML)
+ 
+})
+
+function localPage() {
+  pazzleContainer.innerHTML = localStorage.getItem('pages')
+  timeCounter.innerHTML = localStorage.getItem('timeSave')
+  movesCounter.innerHTML = localStorage.getItem('movesSave')
+  cellsArray = localStorage.getItem('arr')
+  console.log(cellsArray)
+}
+
+loadGames.addEventListener("click", () => {
+localPage()
+})
+
+window.addEventListener('load', localResults)
+
 
