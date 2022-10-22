@@ -193,12 +193,12 @@ function change(index) {
   });
  localStorage.setItem('arr', cellsArray)
   if (isFinished) {
-    // if(music.classList.contains('music-on')) {
-    //   let audioWon = new Audio(); 
-    //   audioWon.src = '../../gem-puzzle/music/4cccc379d8da21a.mp3'; 
-    //   audioWon.volume = 0.5;
-    //   audioWon.play();
-    // }
+    if(music.classList.contains('music-on')) {
+      let audioWon = new Audio(); 
+      audioWon.src = '../../../milsevka-JSFE2022Q3/gem-puzzle/music/4cccc379d8da21a.mp3'; 
+      audioWon.volume = 0.5;
+      audioWon.play();
+    }
  
    
     
@@ -338,16 +338,16 @@ music.addEventListener("click", () => {
   music.classList.toggle('music-on')
 })
 
-// shuffle.addEventListener("click", () => {
-//   if(music.classList.contains('music-on')) {
-//     let audio = new Audio(); 
-//     audio.src = '../../gem-puzzle/music/board_tip_movement_002_52384.mp3'; 
-//     audio.volume = 0.5;
-//     audio.play();
-//   } else {
-//     return;
-//   }
-// });
+shuffle.addEventListener("click", () => {
+  if(music.classList.contains('music-on')) {
+    let audio = new Audio(); 
+    audio.src = '../../../milsevka-JSFE2022Q3/gem-puzzle/music/board_tip_movement_002_52384.mp3'; 
+    audio.volume = 0.5;
+    audio.play();
+  } else {
+    return;
+  }
+});
 function localResults() {
   ol.innerHTML = localStorage.getItem('moves')
 }
