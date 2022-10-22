@@ -195,7 +195,7 @@ function change(index) {
   if (isFinished) {
     if(music.classList.contains('music-on')) {
       let audioWon = new Audio(); 
-      audioWon.src = '../music/4cccc379d8da21a.mp3'; 
+      audioWon.src = '../../gem-puzzle/music/4cccc379d8da21a.mp3'; 
       audioWon.volume = 0.5;
       audioWon.play();
     }
@@ -299,12 +299,12 @@ for (let i = 1; i <= amount; i++) {
     pazzleContainer.append(pazzleCard);
     pazzleCard.addEventListener("click", () => {
       change(i);
-      // if(music.classList.contains('music-on')) {
-      //   let audioCard = new Audio(); 
-      //   audioCard.src = '../../gem-puzzle/music/game_board_003_52379.mp3'; 
-      //   audioCard.volume = 0.5;
-      //   audioCard.play();
-      // }
+      if(music.classList.contains('music-on')) {
+        let audioCard = new Audio(); 
+        audioCard.src = '../../gem-puzzle/music/game_board_003_52379.mp3'; 
+        audioCard.volume = 0.5;
+        audioCard.play();
+      }
     });
   }
   
