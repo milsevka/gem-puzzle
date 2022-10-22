@@ -203,37 +203,14 @@ function change(index) {
    
     
   let stringLocal = {moves: movesCounter.innerHTML , time: timeCounter.innerHTML}
-  // resultWin.push(stringLocal)
-  // console.log(resultWin)
-  // ol.innerHTML = JSON.stringify(resultWin.sort((prev, next) => prev.moves - next.moves))
-  // ol.innerHTML = resultWin.sort((prev, next) => prev.moves - next.moves).join('')
-
-  //  Object.entries(stringLocal).forEach(([key, value]) => resultWin.push(`${key}: ${value}`))
+ 
     popup.classList.add('active')
     popupContetn.innerHTML = `You won! You solved the puzzle in ${movesCounter.innerHTML} steps and in ${timeCounter.innerHTML} sec!`
-    // localStorage.setItem('moves', stringLocal)
     resultWin.push(stringLocal);
     resultWin.sort((prev, next) => prev.moves - next.moves)
     ol.innerHTML = JSON.stringify(resultWin).replace(/[^a-z0-9:.\s]/gi, ' ')
    localStorage.setItem('moves', ol.innerHTML)
-  
-     
 
-
-      // function getListContent() {
-      //   let result = [];
-   
-      //   for(let i=1; i<=1; i++) {
-      //     let li = document.createElement('li');
-      //     li.append(`${localStorage.getItem('moves')}`);
-      //     result.push(li);
-      //   }
-      //   return result;
-      // }
-      // // ol.innerHTML = getListContent()
-      //  ol.append(...getListContent());
- 
-     
  
     clearTimer()
     pazzleContainer.innerHTML = ''
