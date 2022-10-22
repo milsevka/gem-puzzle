@@ -278,7 +278,7 @@ for (let i = 1; i <= amount; i++) {
       change(i);
       if(music.classList.contains('music-on')) {
         let audioCard = new Audio(); 
-        audioCard.src = '../../gem-puzzle/music/game_board_003_52379.mp3'; 
+        audioCard.src = '/gem-puzzle/js/game_board_003_52379.mp3'; 
         audioCard.volume = 0.5;
         audioCard.play();
       }
