@@ -157,7 +157,7 @@ sizeContainer.onclick = function (event) {
     timeCounter.innerHTML = "00:00";
     prepTable();
     stopTimer(); 
-     localStorage.setItem("row", rows)
+    //  localStorage.setItem("row", rows)
   } else {
     return;
   }
@@ -384,6 +384,7 @@ save.addEventListener("click", () => {
 loadGames.addEventListener("click", () => {
 timeCounter.innerHTML = localStorage.getItem("timeSave");
 movesCounter.innerHTML = localStorage.getItem("movesSave");
+stopTimer()
 startTimerLoad()
 lastGame()
 
