@@ -131,7 +131,7 @@ let ol = document.createElement("div");
 ol.className = "res";
 resultsCont.append(ol);
 
-let amount;
+// let amount;
 
 let rows = 4;
 let size;
@@ -149,7 +149,7 @@ sizeContainer.onclick = function (event) {
   ) {
     rows = target.id;
     size = target.innerHTML;
-    amount = Number(target.id * target.id - 1);
+    // amount = Number(target.id * target.id - 1);
     pazzleContainer.innerHTML = "";
     cellsArray.length = 0;
     movesCounter.innerHTML = "0";
@@ -376,6 +376,8 @@ save.addEventListener("click", () => {
   localStorage.setItem("fct", freeCard.top);
   localStorage.setItem("fcl", freeCard.left);
   localStorage.setItem("second" , sec);
+  localStorage.setItem("row" , rows);
+  stopTimer()
 });
 
 
@@ -388,7 +390,6 @@ lastGame()
 
 });
 
-let amountLoad
 function lastGame() {
   pazzleContainer.innerHTML = ''
   cellsArray = [] 
@@ -436,3 +437,4 @@ function lastGame() {
 window.addEventListener("load", localResults);
 
 prepTable();
+// localStorage.clear()
