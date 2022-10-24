@@ -11,6 +11,7 @@ let popupContetn = document.createElement("div");
 popupContetn.className = "popup-content";
 popup.append(popupContetn);
 
+
 let popupResults = document.createElement("div");
 popupResults.className = "popup-results";
 container.append(popupResults);
@@ -131,7 +132,7 @@ let ol = document.createElement("div");
 ol.className = "res";
 resultsCont.append(ol);
 
-// let amount;
+
 
 let rows = 4;
 let size;
