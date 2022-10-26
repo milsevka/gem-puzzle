@@ -150,7 +150,6 @@ sizeContainer.onclick = function (event) {
   ) {
     rows = target.id;
     size = target.innerHTML;
-    // amount = Number(target.id * target.id - 1);
     pazzleContainer.innerHTML = "";
     cellsArray.length = 0;
     movesCounter.innerHTML = "0";
@@ -158,7 +157,6 @@ sizeContainer.onclick = function (event) {
     timeCounter.innerHTML = "00:00";
     prepTable();
     stopTimer(); 
-    //  localStorage.setItem("row", rows)
   } else {
     return;
   }
@@ -439,4 +437,3 @@ function lastGame() {
 window.addEventListener("load", localResults);
 
 prepTable();
-// localStorage.clear()

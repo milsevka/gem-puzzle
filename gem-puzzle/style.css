@@ -137,7 +137,6 @@ body {
 }
 .pazzle-card:hover {
     background-color: rgba(115, 146, 199, 0.8); 
-    /* transform: scale(1.05);  */
 }
 .size-container {
     margin-top: 30px;
