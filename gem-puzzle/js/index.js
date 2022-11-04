@@ -155,6 +155,7 @@ sizeContainer.onclick = function (event) {
     movesCounter.innerHTML = "0";
     sizeCounter.innerHTML = size;
     timeCounter.innerHTML = "00:00";
+    timerGo = false;
     prepTable();
     stopTimer(); 
   } else {
@@ -231,6 +232,8 @@ function change(index) {
 }
 let pazzleCard;
 
+let timerGo = false;
+
 
 function prepTable() {
   if (localStorage.getItem("row")) {
@@ -288,6 +291,9 @@ function prepTable() {
     pazzleContainer.append(pazzleCard);
     pazzleCard.addEventListener("click", () => {
       change(i);
+       if (!timerGo) {
+        startTimer()
+       }
       if (music.classList.contains("music-on")) {
         let audioCard = new Audio();
         audioCard.src =
@@ -306,6 +312,7 @@ let timer;
 
 function startTimer() {
   sec = 0;
+  timerGo = true;
   timer = setInterval(tick, 1000);
 }
 
@@ -376,13 +383,14 @@ save.addEventListener("click", () => {
   localStorage.setItem("fcl", freeCard.left);
   localStorage.setItem("second" , sec);
   localStorage.setItem("row" , rows);
-  stopTimer()
+  localStorage.setItem("size" , sizeCounter.innerHTML);
 });
 
 
 loadGames.addEventListener("click", () => {
 timeCounter.innerHTML = localStorage.getItem("timeSave");
 movesCounter.innerHTML = localStorage.getItem("movesSave");
+sizeCounter.innerHTML = localStorage.getItem("size")
 stopTimer()
 startTimerLoad()
 lastGame()
